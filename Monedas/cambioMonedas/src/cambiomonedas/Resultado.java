@@ -5,6 +5,8 @@
  */
 package cambiomonedas;
 
+import javax.swing.JTable;
+
 /**
  *
  * @author leeyn
@@ -17,14 +19,18 @@ public class Resultado extends javax.swing.JFrame {
     String[][] imprimir;
     int[] livalores;
     int iC;
+    boolean bool;
+    JTable tabla;
     int n;
     String[][] all;
 
-    public Resultado(String[][] imprimir, int[] livalores, int iC, int n) {
+    public Resultado(String[][] imprimir, int[] livalores, int iC, int n, boolean bool, JTable tabla) {
         this.imprimir = imprimir;
         this.livalores = livalores;
         this.iC = iC;
         this.n = n;
+        this.bool = bool;
+        this.tabla = tabla;
         initComponents();
     }
 
@@ -45,7 +51,7 @@ public class Resultado extends javax.swing.JFrame {
         taResul = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         taResumido = new javax.swing.JTextArea();
-
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -92,8 +98,8 @@ public class Resultado extends javax.swing.JFrame {
         for (int j = 1; j < iC + 2; j++) {
             all[0][j] = String.valueOf(j - 1);
         }
-        for (int i = 2; i < n + 2; i++) {
-            all[i][0] = "val: " + livalores[i - 2];
+        for (int i = 1; i < n + 1; i++) {
+            all[i+1][0] = "val: " + livalores[i];
         }
         for (int i = 1; i < n + 2; i++) {
             for (int j = 1; j < iC + 2; j++) {
@@ -113,13 +119,18 @@ public class Resultado extends javax.swing.JFrame {
         String[] div = all[all.length - 1][all[0].length - 1].split("~");
         String[] rela = div[0].split(" ");
 
-        for (int br = 1; br < div.length; br++) {
+        if(!bool) {
+        	for (int br = 1; br < div.length; br++) {
 
-            String[] data = div[br].split(":");
-            for(int g=0;g<data.length;g++){
-                System.out.println(data[g]+"-");
+                String[] data = div[br].split(":");
+                for(int g=0;g<data.length;g++){
+                    System.out.println(data[g]+"-");
+                }
+                c += "\t"+data[0] + " moneda de: " + data[1] + "\t";
             }
-            c += "\t"+data[0] + " moneda de: " + data[1] + "\t";
+        }
+        else {
+        	c = "No se disponen los valores necesarios para realizar el cambio";
         }
         taResumido.append("\n" + c + "\n");
     }//GEN-LAST:event_formWindowOpened

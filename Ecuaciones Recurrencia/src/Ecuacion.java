@@ -14,10 +14,7 @@ public class Ecuacion {
 		//Condiciones iniciales
 		double valorN[] = new double[gradoEcuacion];
 		double valorFN[] = new double[gradoEcuacion];
-		
-		//Soluciones
-		double soluciones[] = new double[gradoEcuacion];
-		
+				
 		//Matriz de ecuaciones lineales
 		double matriz[][] = new double[gradoEcuacion][gradoEcuacion+1];
 		
@@ -55,19 +52,6 @@ public class Ecuacion {
 			temp[gradoEcuacion+1] = temp[gradoEcuacion+1] + coeficientes[gradoEcuacion];
 		}
 		
-		
-		//Fn = C1*soluciones[0]^n + C2*soluciones[1]^n
-		for(int i=0; i<gradoEcuacion; i++) {
-			for(int j=0; j<=gradoEcuacion; j++) {
-				if(j == gradoEcuacion) {
-					matriz[i][j] = valorFN[i];
-				}
-				else {
-					matriz[i][j] = Math.pow(soluciones[i], valorN[i]);
-				}
-			}
-		}
-		
 		double otroTemp[] = new double[temp.length - 1];
 		
 		for(int i=0; i<otroTemp.length; i++) {
@@ -82,6 +66,25 @@ public class Ecuacion {
 		System.out.println("Fn = ");
 		for(int i=0; i<raiz.size(); i++) {
 			System.out.print("C"+(i+1)+" "+raiz.get(i)+"^n"+" + ");
+		}
+		
+		//Fn = C1*soluciones[0]^n + C2*soluciones[1]^n
+		for(int i=0; i<gradoEcuacion; i++) {
+			for(int j=0; j<=gradoEcuacion; j++) {
+				if(j == gradoEcuacion) {
+					matriz[i][j] = valorFN[i];
+				}
+				else {
+					matriz[i][j] = Math.pow((double) raiz.get(j), valorN[i]);
+				}
+			}
+		}
+		
+		for(int i=0; i<gradoEcuacion; i++) {
+			for(int j=0; j<=gradoEcuacion; j++) {
+				System.out.print(matriz[i][j]+"  ");
+			}
+			System.out.println();
 		}
 	}
 

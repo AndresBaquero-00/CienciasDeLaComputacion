@@ -102,23 +102,24 @@ public class Ecuacion {
                 double error = (double) raiz.get(j) - (double) raiz.get(i);
                 if (Math.abs(error) < 0.0001) {
                     array[j] = array[j] + 1;
-                    array[i] = array[j];
+                    array[i] = array[j] + 1;
                 }
             }
         }
-
+        
+        for(int i=0; i<raiz.size(); i++) {
+        	System.out.println(array[i]);
+        }
         //Fn = C1*soluciones[0]^n + C2*soluciones[1]^n
         for (int i = 0; i < gradoEcuacion; i++) {
-            int k = 0;
             for (int j = 0; j <= gradoEcuacion; j++) {
                 if (j == gradoEcuacion) {
                     matriz[i][j] = valorFN[i];
                 } else {
                     if (array[j] == 0) {
                         matriz[i][j] = Math.pow((double) raiz.get(j), valorN[i]);
-                    } else {
-                        matriz[i][j] = Math.pow(valorN[i], k) * Math.pow((double) raiz.get(j), valorN[i]);
-                        k++;
+                    } else{
+                        matriz[i][j] = Math.pow(valorN[i], array[j]-1) * Math.pow((double) raiz.get(j), valorN[i]);
                     }
                 }
             }

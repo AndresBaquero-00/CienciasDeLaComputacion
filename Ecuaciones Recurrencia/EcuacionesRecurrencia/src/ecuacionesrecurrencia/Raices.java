@@ -42,7 +42,7 @@ public class Raices {
 					Xi = Xi1;
 					iteraciones = iteraciones + 1;
 					
-				}while(Math.abs(temp) > 0.0000000001 && iteraciones < 100);
+				}while(Math.abs(temp) > 0.00000000001 && iteraciones < 100);
 								
 				raices.add(Xi);
 				

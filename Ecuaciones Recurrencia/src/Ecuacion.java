@@ -68,18 +68,6 @@ public class Ecuacion {
 		
 		raiz = calcRaiz.getRaices();
 		
-		//Fn = C1*soluciones[0]^n + C2*soluciones[1]^n
-		for(int i=0; i<gradoEcuacion; i++) {
-			for(int j=0; j<=gradoEcuacion; j++) {
-				if(j == gradoEcuacion) {
-					matriz[i][j] = valorFN[i];
-				}
-				else {
-					matriz[i][j] = Math.pow((double) raiz.get(j), valorN[i]);
-				}
-			}
-		}
-		
 		int array[] = new int[raiz.size()];
 		String resul = "";
 		
@@ -89,6 +77,25 @@ public class Ecuacion {
 				if(Math.abs(error) < 0.0001) {
 					array[j] = array[j] + 1;
 					array[i] = array[j];
+				}
+			}
+		}
+		
+		//Fn = C1*soluciones[0]^n + C2*soluciones[1]^n
+		for(int i=0; i<gradoEcuacion; i++) {
+			int k=0;
+			for(int j=0; j<=gradoEcuacion; j++) {
+				if(j == gradoEcuacion) {
+					matriz[i][j] = valorFN[i];
+				}
+				else {
+					if(array[j] == 0) {
+						matriz[i][j] = Math.pow((double) raiz.get(j), valorN[i]);
+					}
+					else {
+						matriz[i][j] = Math.pow(valorN[i], k)*Math.pow((double) raiz.get(j), valorN[i]);
+						k++;
+					}
 				}
 			}
 		}

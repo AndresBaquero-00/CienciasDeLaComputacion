@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Raices {
 	
 	static ArrayList<Double> raices;
+	int iteraciones;
 	public void CalcularRaices(double polinom[]) {
 		// TODO Auto-generated method stub;
 		double Xi = 0, y1 = 0, y2 = 0, Xi1;
@@ -17,7 +18,7 @@ public class Raices {
 		}
 		else {
 			do{			
-				int iteraciones = 0;
+				iteraciones = 0;
 				derivado = derivar(poli);
 				do {
 					y1 = polinomio(Xi, poli);
@@ -29,7 +30,7 @@ public class Raices {
 					Xi = Xi1;
 					iteraciones = iteraciones + 1;
 					
-				}while(Math.abs(temp) > 0.00001 && iteraciones < 100);
+				}while(Math.abs(temp) > 0.0000000001 && iteraciones < 100);
 								
 				raices.add(Xi);
 				
@@ -47,10 +48,7 @@ public class Raices {
 				}	
 			}while(salir);
 		}
-		
-		for(int i=0; i<raices.size(); i++) {
-			System.out.print(raices.get(i)+"   ");
-		}
+
 	}
 	
 	public double polinomio(double x, double[] poli) {
@@ -96,5 +94,9 @@ public class Raices {
 	
 	public ArrayList getRaices() {
 		return raices;
+	}
+	
+	public int getIteraciones() {
+		return iteraciones;
 	}
 }

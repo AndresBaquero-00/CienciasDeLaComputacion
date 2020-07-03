@@ -14,10 +14,7 @@ public class Ecuacion {
 		//Condiciones iniciales
 		double valorN[] = new double[gradoEcuacion];
 		double valorFN[] = new double[gradoEcuacion];
-		
-		//Soluciones
-		double soluciones[] = new double[gradoEcuacion];
-		
+				
 		//Matriz de ecuaciones lineales
 		double matriz[][] = new double[gradoEcuacion][gradoEcuacion+1];
 		
@@ -35,10 +32,12 @@ public class Ecuacion {
 		}
 		
 		for(int i=0; i<=gradoEcuacion; i++) {
-			System.out.print("Digite el coeficiente de Fn-"+i+": ");
+			System.out.print("Digite el coeficiente de X^"+(gradoEcuacion - i)+": ");
 			coeficientes[i] = Double.parseDouble(ingresar.nextLine());
 		}
 		
+		//Convierte la ecuación a homogenea
+		/*
 		if(coeficientes[gradoEcuacion] != 0) {
 			temp[0] = 0;
 			temp[gradoEcuacion+1] = coeficientes[gradoEcuacion]*(-1);
@@ -54,34 +53,77 @@ public class Ecuacion {
 			
 			temp[gradoEcuacion+1] = temp[gradoEcuacion+1] + coeficientes[gradoEcuacion];
 		}
+		*/
 		
+		//Asignando los valores de la ecuación homogenea a la ecuacion caracteristica
+		/*double otroTemp[] = new double[temp.length - 1];
+		
+		for(int i=0; i<otroTemp.length; i++) {
+			otroTemp[i] = temp[i];
+			System.out.println(otroTemp[i]);
+		}*/
+		
+		Raices calcRaiz = new Raices();
+		calcRaiz.CalcularRaices(coeficientes);
+		
+		raiz = calcRaiz.getRaices();
+		
+		int array[] = new int[raiz.size()];
+		String resul = "";
+		
+		for(int j=0; j<raiz.size(); j++) {
+			for(int i=j+1; i < raiz.size(); i++) {
+				double error = (double) raiz.get(j) - (double) raiz.get(i);
+				if(Math.abs(error) < 0.0001) {
+					array[j] = array[j] + 1;
+					array[i] = array[j];
+				}
+			}
+		}
 		
 		//Fn = C1*soluciones[0]^n + C2*soluciones[1]^n
 		for(int i=0; i<gradoEcuacion; i++) {
+			int k=0;
 			for(int j=0; j<=gradoEcuacion; j++) {
 				if(j == gradoEcuacion) {
 					matriz[i][j] = valorFN[i];
 				}
 				else {
-					matriz[i][j] = Math.pow(soluciones[i], valorN[i]);
+					if(array[j] == 0) {
+						matriz[i][j] = Math.pow((double) raiz.get(j), valorN[i]);
+					}
+					else {
+						matriz[i][j] = Math.pow(valorN[i], k)*Math.pow((double) raiz.get(j), valorN[i]);
+						k++;
+					}
 				}
 			}
 		}
-		
-		double otroTemp[] = new double[temp.length - 1];
-		
-		for(int i=0; i<otroTemp.length; i++) {
-			otroTemp[i] = temp[i];
+				
+		if(calcRaiz.getIteraciones() == 100) {
+			System.out.println("Raices complejas");
+		}
+		else {
+			System.out.print("Fn = ");
+			int j=0;
+			for(int i=0; i<raiz.size(); i++) {
+				if(array[i] == 0) {
+					resul =  resul + "C"+(i+1)+"*"+raiz.get(i)+"^n"+" + ";
+				}
+				else {
+					resul = resul + "C"+(i+1)+"*n^"+j+"*"+raiz.get(i)+"^n"+" + ";
+					j++;
+				}
+			}
+			
+			System.out.println(resul);
 		}
 		
-		Raices calcRaiz = new Raices();
-		calcRaiz.CalcularRaices(otroTemp);
-		
-		raiz = calcRaiz.getRaices();
-		
-		System.out.println("Fn = ");
-		for(int i=0; i<raiz.size(); i++) {
-			System.out.print("C"+(i+1)+" "+raiz.get(i)+"^n"+" + ");
+		for(int i=0; i<gradoEcuacion; i++) {
+			for(int j=0; j<=gradoEcuacion; j++) {
+				System.out.print(matriz[i][j]+"  ");
+			}
+			System.out.println();
 		}
 	}
 

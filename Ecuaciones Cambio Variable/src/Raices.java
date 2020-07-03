@@ -1,4 +1,16 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+/**
+ *
+ * @author leeyn
+ */
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class Raices {
 	
@@ -30,7 +42,7 @@ public class Raices {
 					Xi = Xi1;
 					iteraciones = iteraciones + 1;
 					
-				}while(Math.abs(temp) > 0.0000000001 && iteraciones < 100);
+				}while(Math.abs(temp) > 0.00000000001 && iteraciones < 100);
 								
 				raices.add(Xi);
 				
@@ -39,6 +51,7 @@ public class Raices {
 				System.out.println();
 				if(iteraciones == 100) {
 					System.out.println("No tiene raices reales");
+                                        JOptionPane.showMessageDialog(null, "No tiene raices reales");
 					salir = false;
 				}
 				

@@ -129,11 +129,20 @@ public class Ecuacion {
             System.out.println("Raices complejas");
         } else {
             System.out.print("Fn = ");
+<<<<<<< HEAD
+=======
+            int j = 0;
+>>>>>>> 9041d9ca5fb8eec0a156fbd61706d6a72857ba2c
             for (int i = 0; i < raiz.size(); i++) {
                 if (array[i] == 0) {
                     resul = resul + "C" + (i + 1) + "*" + raiz.get(i) + "^n" + " + ";
                 } else {
+<<<<<<< HEAD
                     resul = resul + "C" + (i + 1) + "*n^" + (array[i]-1) + "*" + raiz.get(i) + "^n" + " + ";
+=======
+                    resul = resul + "C" + (i + 1) + "*n^" + j + "*" + raiz.get(i) + "^n" + " + ";
+                    j++;
+>>>>>>> 9041d9ca5fb8eec0a156fbd61706d6a72857ba2c
                 }
             }
 
@@ -165,6 +174,10 @@ public class Ecuacion {
         }
         System.out.println(s);
         JOptionPane.showMessageDialog(null, s);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9041d9ca5fb8eec0a156fbd61706d6a72857ba2c
     }
 
 }

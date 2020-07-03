@@ -42,5 +42,12 @@ public class Resolver {
       
         return matriz;
     }
+<<<<<<< HEAD
 
+=======
+    
+    
+    
+    
+>>>>>>> 9041d9ca5fb8eec0a156fbd61706d6a72857ba2c
 }
